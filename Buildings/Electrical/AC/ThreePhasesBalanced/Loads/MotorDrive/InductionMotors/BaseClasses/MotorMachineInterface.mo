@@ -56,8 +56,12 @@ model MotorMachineInterface
 protected
   Real ratio "Intermediate value used in calculation";
 
-  Boolean y_internal "True: the angular velocity is greater than zero";
+  Boolean y_internal "Internal variable to flag the angular velocity. True: the velocity is greater than zero";
 
+initial equation 
+  // Value of y_internal at initial time should be false
+  pre(y_internal)=false;
+  
 equation
   // check if omega_s > 0 with hysteresis
   y_internal = noEvent(not pre(y_internal) and omega_s > omegaHys
